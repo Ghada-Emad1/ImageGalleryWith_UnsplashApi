@@ -9,7 +9,6 @@ export const Gallery = () => {
   const UNSPLASH_ROOT = "https://api.unsplash.com";
   const clientId = "zElVJ34iPd3KsW4fqHigu2TJOS3Novfc9-iiPIpx3jA";
 
-  
   useEffect(() => {
     requestApi();
   }, []);
@@ -20,22 +19,22 @@ export const Gallery = () => {
       )
       .then((res) => {
         const data = res.data.results;
+
         setimage(data);
-        console.log(data);
       });
   }
   return (
     <div>
       <form
-        className="flex mt-4  justify-center items-center flex-col"
+        className="flex flex-col mt-4  justify-center items-center"
         onSubmit={(e) => {
           e.preventDefault(), requestApi();
         }}
       >
-        <div className="flex flex-row">
+        <div className="flex flex-col sm:flex-row items-center gap-5 justify-center">
           <label>
             <input
-              className="border border-gray-500 outline-none w-[300px]  py-1 rounded-lg p-3 text-lg text-blue-950"
+              className="border border-gray-500 outline-none w-[250px] sm:w-[300px]  py-1 rounded-lg p-3 text-lg text-blue-950"
               value={imgvalue}
               placeholder="Enter Your Image Name"
               onChange={(e) => setimgvalue(e.target.value)}
@@ -45,22 +44,10 @@ export const Gallery = () => {
             Search
           </button>
         </div>
-        
-        <Images props={images} />
-        {images.map((data) => (
-          <div key={data.id}>
-            {/* <h1>{img.description}</h1> */}
-            <Images
-              urls={data.urls.regular}
-              username={data.user.username}
-              des={data.alt_description}
-              likes={data.likes}
-              
-            />
-            {/* <img src={img.urls.regular} alt=""style={{width:'300px',height:'300px',objectFit:'cover'}}/> */}
-            
-          </div>
-        ))}
+
+        <div>
+          <Images images={images} />
+        </div>
       </form>
     </div>
   );
